@@ -1,5 +1,7 @@
 package id.rofiqof.assesmenttest.module.list_data;
 
+import java.util.List;
+
 import id.rofiqof.assesmenttest.model.DataBarang;
 
 interface ListDataInterface {
@@ -11,6 +13,6 @@ interface ListDataInput {
 }
 
 interface ListDataOutput {
-    void getListDataSuccess(DataBarang data);
+    void getListDataSuccess(List<DataBarang> data);
     void getListDataFailed(String message);
 }

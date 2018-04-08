@@ -1,5 +1,7 @@
 package id.rofiqof.assesmenttest.module.list_data;
 
+import java.util.List;
+
 import id.rofiqof.assesmenttest.model.DataBarang;
 
 public class ListDataPresenter implements ListDataInterface, ListDataOutput {
@@ -20,7 +22,7 @@ public class ListDataPresenter implements ListDataInterface, ListDataOutput {
     }
 
     @Override
-    public void getListDataSuccess(DataBarang data) {
+    public void getListDataSuccess(List<DataBarang> data) {
         view.getListDataViewSuccess(data);
     }
 

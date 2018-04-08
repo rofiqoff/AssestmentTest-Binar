@@ -20,7 +20,8 @@
         <activity
             android:name=".view.home.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".view.tambah_data.TambahDataActivity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -72,10 +73,7 @@ public class HomeActivity extends AppCompatActivity implements ListDataView {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setList(DataBarang data) {
-
-        List<DataBarang> list = new ArrayList<>();
-        list.add(data);
+    private void setList(List<DataBarang> list) {
 
         Adapter<DataBarang, ListDataViewHolder> adapter = new Adapter<DataBarang, ListDataViewHolder>(
                 R.layout.list_data_barang, ListDataViewHolder.class, DataBarang.class, list) {
@@ -98,12 +96,14 @@ public class HomeActivity extends AppCompatActivity implements ListDataView {
     }
 
     @Override
-    public void getListDataViewSuccess(DataBarang data) {
+    public void getListDataViewSuccess(List<DataBarang> data) {
+        Log.d("TAG", "Data Barang " + data);
         setList(data);
     }
 
     @Override
     public void getListDataViewFailed(String message) {
+        Log.d("TAG", "Failed " + message);
         Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
