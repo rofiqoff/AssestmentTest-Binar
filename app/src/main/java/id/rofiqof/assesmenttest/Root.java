@@ -39,4 +39,9 @@ public class Root extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
