@@ -30,7 +30,7 @@ public class ListDataInteractor implements ListDataInput {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     data.add(child.getValue(DataBarang.class));
                 }
-                    output.getListDataSuccess(data);
+                output.getListDataSuccess(data);
             }
 
             @Override

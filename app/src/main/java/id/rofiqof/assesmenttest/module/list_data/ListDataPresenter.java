@@ -1,8 +1,12 @@
 package id.rofiqof.assesmenttest.module.list_data;
 
+import android.content.Context;
+import android.content.Intent;
+
 import java.util.List;
 
 import id.rofiqof.assesmenttest.model.DataBarang;
+import id.rofiqof.assesmenttest.view.tambah_data.TambahDataActivity;
 
 public class ListDataPresenter implements ListDataInterface, ListDataOutput {
 
@@ -19,6 +23,13 @@ public class ListDataPresenter implements ListDataInterface, ListDataOutput {
     @Override
     public void getListData() {
         interactor.getListData();
+    }
+
+    @Override
+    public void toAddList(Context context) {
+        Intent intent = new Intent(context, TambahDataActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     @Override

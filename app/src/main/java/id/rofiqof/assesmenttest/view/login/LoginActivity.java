@@ -35,10 +35,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         content = DataBindingUtil.setContentView(this, R.layout.login_activity);
         content.setView(this);
 
-        mDialog = new ProgressDialog(LoginActivity.this);
-        mDialog.setMessage("Please Wait ...");
-        mDialog.setCancelable(false);
-
         session = new SessionData(LoginActivity.this);
 
         presenter = new LoginPresenter(new LoginInteractor(), this);
@@ -49,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     public void loginAction() {
-        mDialog.show();
+        setDialog();
         presenter.login(
                 content.username.getText().toString(),
                 content.password.getText().toString());
@@ -96,5 +92,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void loginViewFailed(String message) {
         mDialog.dismiss();
         Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setDialog() {
+        mDialog = new ProgressDialog(LoginActivity.this);
+        mDialog.setMessage("Please Wait ...");
+        mDialog.setCancelable(false);
+        mDialog.show();
     }
 }

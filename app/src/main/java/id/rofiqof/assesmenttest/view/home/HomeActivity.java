@@ -3,12 +3,14 @@ package id.rofiqof.assesmenttest.view.home;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ import id.rofiqof.assesmenttest.support.SessionData;
 import id.rofiqof.assesmenttest.view.login.LoginActivity;
 import id.rofiqof.assesmenttest.view.view_holder.ListDataViewHolder;
 
-public class HomeActivity extends AppCompatActivity implements ListDataView {
+public class HomeActivity extends AppCompatActivity implements ListDataView, SwipeRefreshLayout.OnRefreshListener {
 
     ContentHomeBinding content;
 
@@ -40,6 +42,9 @@ public class HomeActivity extends AppCompatActivity implements ListDataView {
         content.setView(this);
 
         session = new SessionData(HomeActivity.this);
+
+        content.loading.setVisibility(View.VISIBLE);
+        content.refresh.setOnRefreshListener(this);
 
         presenter = new ListDataPresenter(new ListDataInteractor(), this);
         presenter.getListData();
@@ -73,6 +78,22 @@ public class HomeActivity extends AppCompatActivity implements ListDataView {
         return super.onOptionsItemSelected(item);
     }
 
+    public void addList() {
+        presenter.toAddList(getBaseContext());
+    }
+
+    @Override
+    public void getListDataViewSuccess(List<DataBarang> data) {
+        content.loading.setVisibility(View.GONE);
+        setList(data);
+    }
+
+    @Override
+    public void getListDataViewFailed(String message) {
+        content.loading.setVisibility(View.GONE);
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     private void setList(List<DataBarang> list) {
 
         Adapter<DataBarang, ListDataViewHolder> adapter = new Adapter<DataBarang, ListDataViewHolder>(
@@ -91,19 +112,10 @@ public class HomeActivity extends AppCompatActivity implements ListDataView {
 
     }
 
-    public void addList() {
-
-    }
-
     @Override
-    public void getListDataViewSuccess(List<DataBarang> data) {
-        Log.d("TAG", "Data Barang " + data);
-        setList(data);
-    }
-
-    @Override
-    public void getListDataViewFailed(String message) {
-        Log.d("TAG", "Failed " + message);
-        Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
+    public void onRefresh() {
+        presenter.getListData();
+        content.refresh.setRefreshing(false);
+        content.loading.setVisibility(View.VISIBLE);
     }
 }
